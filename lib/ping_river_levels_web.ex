@@ -43,7 +43,7 @@ defmodule PingRiverLevelsWeb do
         layouts: [html: PingRiverLevelsWeb.Layouts]
 
       import Plug.Conn
-      import PingRiverLevelsWeb.Gettext
+      use Gettext, backend: PingRiverLevelsWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -85,7 +85,7 @@ defmodule PingRiverLevelsWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import PingRiverLevelsWeb.CoreComponents
-      import PingRiverLevelsWeb.Gettext
+      use Gettext, backend: PingRiverLevelsWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

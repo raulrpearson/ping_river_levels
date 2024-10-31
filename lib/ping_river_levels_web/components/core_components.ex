@@ -17,7 +17,7 @@ defmodule PingRiverLevelsWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import PingRiverLevelsWeb.Gettext
+  use Gettext, backend: PingRiverLevelsWeb.Gettext
 
   @doc """
   Renders a modal.

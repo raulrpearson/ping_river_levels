@@ -20,5 +20,5 @@ defmodule PingRiverLevelsWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :ping_river_levels
+  use Gettext.Backend, otp_app: :ping_river_levels
 end
