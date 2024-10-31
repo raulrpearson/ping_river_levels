@@ -21,9 +21,11 @@ defmodule PingRiverLevelsWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PingRiverLevelsWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", PingRiverLevelsWeb do
+    pipe_through :api
+
+    resources "/stations", StationController, only: [:index, :show]
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:ping_river_levels, :dev_routes) do
