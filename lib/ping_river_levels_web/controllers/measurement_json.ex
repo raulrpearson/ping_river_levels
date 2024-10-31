@@ -17,10 +17,10 @@ defmodule PingRiverLevelsWeb.MeasurementJSON do
 
   defp data(%Measurement{} = measurement) do
     %{
-      id: measurement.id,
       datetime: measurement.datetime,
       level: measurement.level,
-      discharge: measurement.discharge
+      discharge: measurement.discharge,
+      station_id: measurement.station_id
     }
   end
 end
