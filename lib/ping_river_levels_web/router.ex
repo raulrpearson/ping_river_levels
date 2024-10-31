@@ -25,6 +25,7 @@ defmodule PingRiverLevelsWeb.Router do
     pipe_through :api
 
     resources "/stations", StationController, only: [:index, :show]
+    resources "/measurements", MeasurementController, only: [:index, :show]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
