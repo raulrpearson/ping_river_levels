@@ -17,8 +17,8 @@ defmodule PingRiverLevels.Water do
       [%Station{}, ...]
 
   """
-  def list_stations do
-    Repo.all(Station)
+  def list_stations(params \\ %{}) do
+    Flop.validate_and_run(Station, params, for: Station)
   end
 
   @doc """
@@ -113,8 +113,8 @@ defmodule PingRiverLevels.Water do
       [%Measurement{}, ...]
 
   """
-  def list_measurements do
-    Repo.all(Measurement)
+  def list_measurements(params \\ %{}) do
+    Flop.validate_and_run(Measurement, params, for: Measurement)
   end
 
   @doc """

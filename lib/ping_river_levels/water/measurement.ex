@@ -4,6 +4,12 @@ defmodule PingRiverLevels.Water.Measurement do
 
   alias PingRiverLevels.Water.Station
 
+  @derive {
+    Flop.Schema,
+    filterable: [:datetime, :level, :discharge, :station_id],
+    sortable: [:datetime, :level, :discharge, :station_id]
+  }
+
   schema "measurements" do
     field :level, :float
     field :datetime, :utc_datetime

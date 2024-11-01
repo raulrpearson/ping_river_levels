@@ -5,8 +5,8 @@ defmodule PingRiverLevelsWeb.StationController do
 
   action_fallback PingRiverLevelsWeb.FallbackController
 
-  def index(conn, _params) do
-    stations = Water.list_stations()
+  def index(conn, params) do
+    {:ok, {stations, _flop_meta}} = Water.list_stations(params)
     render(conn, :index, stations: stations)
   end
 

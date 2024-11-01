@@ -4,6 +4,11 @@ defmodule PingRiverLevels.Water.Station do
 
   alias PingRiverLevels.Water.Measurement
 
+  @derive {
+    Flop.Schema,
+    filterable: [:id], sortable: [:id]
+  }
+
   @primary_key {:id, :string, autogenerate: false}
   schema "stations" do
     has_many :measurements, Measurement

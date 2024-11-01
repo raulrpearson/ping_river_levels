@@ -5,8 +5,8 @@ defmodule PingRiverLevelsWeb.MeasurementController do
 
   action_fallback PingRiverLevelsWeb.FallbackController
 
-  def index(conn, _params) do
-    measurements = Water.list_measurements()
+  def index(conn, params) do
+    {:ok, {measurements, _flop_meta}} = Water.list_measurements(params)
     render(conn, :index, measurements: measurements)
   end
 
