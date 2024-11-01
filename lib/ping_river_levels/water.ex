@@ -148,7 +148,7 @@ defmodule PingRiverLevels.Water do
   def create_measurement(attrs \\ %{}) do
     %Measurement{}
     |> Measurement.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(on_conflict: :nothing)
   end
 
   @doc """

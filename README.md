@@ -1,18 +1,11 @@
-# PingRiverLevels
+# Ping River Levels
 
-To start your Phoenix server:
+> A [site](https://pingriverlevels.raulrpearson.com/) displaying depth and discharge data for Thailand's Ping River
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+This Elixir/Phoenix project fetches level and discharge data for the Ping River from Thailand's [Royal Irrigation Department](https://hydro-1.net/). It provides this data as a chart and tables. API endpoints are also available.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+<img src="docs/screenshot.png" width="45%" alt="Screenshot of the deployed site">
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+I built this site as a fun learning project. Please keep in mind that the information presented here is provided "as is", without warranty of any kind. There could be bugs that produce inaccurate information, so always check the official data sources if you need stronger assurance.
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+If you have feedback, a feature request or bug report, you can open an [issue](https://github.com/raulrpearson/ping_river_levels/issues).

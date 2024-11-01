@@ -12,5 +12,6 @@ defmodule PingRiverLevels.Repo.Migrations.CreateMeasurements do
     end
 
     create index(:measurements, [:station_id])
+    create unique_index(:measurements, [:station_id, :datetime])
   end
 end

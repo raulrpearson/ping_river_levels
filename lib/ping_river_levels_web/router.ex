@@ -18,9 +18,9 @@ defmodule PingRiverLevelsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/about", PageController, :about
   end
 
-  # Other scopes may use custom stacks.
   scope "/api", PingRiverLevelsWeb do
     pipe_through :api
 

@@ -25,5 +25,6 @@ defmodule PingRiverLevels.Water.Measurement do
     |> cast(attrs, [:datetime, :level, :discharge, :station_id])
     |> validate_required([:datetime, :level, :discharge, :station_id])
     |> assoc_constraint(:station)
+    |> unique_constraint([:datetime, :station_id])
   end
 end

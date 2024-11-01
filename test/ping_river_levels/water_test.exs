@@ -12,7 +12,8 @@ defmodule PingRiverLevels.WaterTest do
 
     test "list_stations/0 returns all stations" do
       station = station_fixture()
-      assert Water.list_stations() == [station]
+      {:ok, {stations, _flop_meta}} = Water.list_stations()
+      assert stations == [station]
     end
 
     test "get_station!/1 returns the station with given id" do
@@ -66,7 +67,8 @@ defmodule PingRiverLevels.WaterTest do
 
     test "list_measurements/0 returns all measurements" do
       measurement = measurement_fixture()
-      assert Water.list_measurements() == [measurement]
+      {:ok, {measurements, _flop_meta}} = Water.list_measurements()
+      assert measurements == [measurement]
     end
 
     test "get_measurement!/1 returns the measurement with given id" do

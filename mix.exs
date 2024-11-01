@@ -62,7 +62,8 @@ defmodule PingRiverLevels.MixProject do
       {:req, "~> 0.5.7"},
       {:tz, "~> 0.28.1"},
       {:flop, "~> 0.26.1"},
-      {:flop_phoenix, "~> 0.23.1"}
+      {:flop_phoenix, "~> 0.23.1"},
+      {:vega_lite, "~> 0.1.10"}
     ]
   end
 
