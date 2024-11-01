@@ -11,14 +11,14 @@ defmodule PingRiverLevels.Application do
       PingRiverLevelsWeb.Telemetry,
       PingRiverLevels.Repo,
       {Ecto.Migrator,
-        repos: Application.fetch_env!(:ping_river_levels, :ecto_repos),
-        skip: skip_migrations?()},
+       repos: Application.fetch_env!(:ping_river_levels, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:ping_river_levels, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: PingRiverLevels.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: PingRiverLevels.Finch},
       # Start a worker by calling: PingRiverLevels.Worker.start_link(arg)
       # {PingRiverLevels.Worker, arg},
+      {Oban, Application.fetch_env!(:ping_river_levels, Oban)},
       # Start to serve requests, typically the last entry
       PingRiverLevelsWeb.Endpoint
     ]

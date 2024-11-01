@@ -63,6 +63,17 @@ config :phoenix, :json_library, Jason
 
 config :flop, repo: PingRiverLevels.Repo
 
+config :ping_river_levels, Oban,
+  engine: Oban.Engines.Lite,
+  queues: [default: 10],
+  repo: PingRiverLevels.Repo,
+  plugins: [
+    {Oban.Plugins.Cron,
+     crontab: [
+       {"*/5 * * * *", PingRiverLevels.ScrapeWorker}
+     ]}
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

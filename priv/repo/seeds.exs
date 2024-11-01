@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias PingRiverLevels.Water
+
+Water.create_station(%{id: "P.1"})
+Water.create_station(%{id: "P.67"})
