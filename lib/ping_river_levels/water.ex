@@ -117,6 +117,38 @@ defmodule PingRiverLevels.Water do
     Flop.validate_and_run(Measurement, params, for: Measurement)
   end
 
+  def query_measurements(%{from: from, to: to, station_ids: station_ids}) do
+    {:ok, {measurements, _}} =
+      list_measurements(%{
+        order_by: [:datetime, :station_id],
+        filters: [
+          %{field: :datetime, op: :>=, value: from},
+          %{field: :datetime, op: :<=, value: to},
+          %{field: :station_id, op: :in, value: station_ids}
+        ],
+        # max out at 20 days for 2 stations, 40 days for one station
+        limit: 24 * 20 * 2
+      })
+
+    Enum.flat_map(0..DateTime.diff(to, from, :hour), fn idx ->
+      datetime = DateTime.shift(from, hour: idx)
+
+      p1_measurement =
+        case Enum.find(measurements, fn m -> m.station_id == "P.1" and m.datetime == datetime end) do
+          nil -> %{datetime: datetime, station_id: "P.1", level: nil, discharge: nil}
+          x -> Map.take(x, [:station_id, :datetime, :level, :discharge])
+        end
+
+      p67_measurement =
+        case Enum.find(measurements, fn m -> m.station_id == "P.67" and m.datetime == datetime end) do
+          nil -> %{datetime: datetime, station_id: "P.67", level: nil, discharge: nil}
+          x -> Map.take(x, [:station_id, :datetime, :level, :discharge])
+        end
+
+      [p1_measurement, p67_measurement]
+    end)
+  end
+
   @doc """
   Gets a single measurement.
 

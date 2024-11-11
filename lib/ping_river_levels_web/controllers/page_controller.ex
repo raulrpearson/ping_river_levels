@@ -1,6 +1,7 @@
 defmodule PingRiverLevelsWeb.PageController do
   use PingRiverLevelsWeb, :controller
 
+  alias PingRiverLevels.Scrape
   alias PingRiverLevels.Water
   alias VegaLite, as: Vl
 
@@ -8,32 +9,32 @@ defmodule PingRiverLevelsWeb.PageController do
     start_date =
       Map.get(params, "start_date", Date.utc_today() |> Date.shift(day: -1) |> Date.to_iso8601())
 
-    start_datetime =
-      DateTime.new!(
-        Date.from_iso8601!(start_date),
-        ~T[00:00:00.000],
-        "Asia/Bangkok",
-        Tz.TimeZoneDatabase
-      )
+    from =
+      start_date
+      |> Date.from_iso8601!()
+      |> DateTime.new!(~T[00:00:00], "Asia/Bangkok")
+      |> DateTime.shift_zone!("Etc/UTC")
 
     number_of_days =
       Map.get(params, "number_of_days", "2")
+
+    to =
+      DateTime.shift(
+        from,
+        day: Integer.parse(number_of_days) |> elem(0),
+        hour: -1
+      )
 
     station_ids =
       Map.get(params, "station_ids", ["P.1", "P.67"])
 
     measurements =
-      Water.list_measurements(%{
-        order_by: [:datetime, :station_id],
-        filters: [
-          %{field: :datetime, op: :>=, value: start_datetime},
-          %{field: :station_id, op: :in, value: station_ids}
-        ],
-        limit: length(station_ids) * 24 * String.to_integer(number_of_days)
-      })
-      |> elem(1)
-      |> elem(0)
-      |> Enum.map(&Map.take(&1, [:datetime, :station_id, :level, :discharge]))
+      %{from: from, to: to, station_ids: station_ids}
+      |> Water.query_measurements()
+
+    measurements
+    |> Scrape.build_queries()
+    |> Scrape.schedule_queries()
 
     spec =
       build_chart_spec(measurements)

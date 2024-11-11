@@ -61,18 +61,14 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :elixir, :time_zone_database, Tz.TimeZoneDatabase
+
 config :flop, repo: PingRiverLevels.Repo
 
 config :ping_river_levels, Oban,
   engine: Oban.Engines.Lite,
   queues: [default: 10],
-  repo: PingRiverLevels.Repo,
-  plugins: [
-    {Oban.Plugins.Cron,
-     crontab: [
-       {"*/5 * * * *", PingRiverLevels.ScrapeWorker}
-     ]}
-  ]
+  repo: PingRiverLevels.Repo
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

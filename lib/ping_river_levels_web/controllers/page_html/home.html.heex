@@ -1,10 +1,17 @@
 <.flash_group flash={@flash} />
 <div class="space-y-5">
+  <p class="text-center text-sm">
+    Data sourced from <a
+      href="https://hydro-1.net/Data/HD-04/houly/hourly_level.php"
+      class="text-amber-600 underline hover:brightness-110"
+    >hydro-1.net</a>.
+  </p>
   <div class="flex justify-between items-center flex-wrap gap-3">
     <form class="flex gap-3 flex-wrap">
       <input
         name="start_date"
         type="date"
+        min="2024-07-10"
         max={Date.utc_today() |> Date.to_iso8601()}
         value={@start_date}
         class="disabled:text-red-500 min-h-[42px]"
@@ -67,7 +74,7 @@
       <tbody>
         <tr :for={m <- measurements} class="odd:bg-gray-100">
           <td class="p-2 tabular-nums">
-            <%= DateTime.shift_zone!(m.datetime, "Asia/Bangkok", Tz.TimeZoneDatabase)
+            <%= DateTime.shift_zone!(m.datetime, "Asia/Bangkok")
             |> then(fn dt ->
               date = DateTime.to_date(dt)
               time = DateTime.to_time(dt)

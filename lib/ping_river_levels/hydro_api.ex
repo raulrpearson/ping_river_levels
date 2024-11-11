@@ -17,11 +17,11 @@ defmodule PingRiverLevels.HydroApi do
         |> elem(0)
         |> then(fn hour -> if hour == 24, do: 0, else: hour end)
 
-      station_ids = [params.station_id1, params.station_id2]
+      station_ids = [params["station_id1"], params["station_id2"]]
 
       dates =
         for i <- if(hour == 0, do: 1..-1//-1, else: 0..-2//-1) do
-          Date.from_iso8601!(params.date) |> Date.shift(day: i)
+          Date.from_iso8601!(params["date"]) |> Date.shift(day: i)
         end
 
       for station <- Enum.with_index(station_ids, 1), date <- Enum.with_index(dates, 1) do
@@ -36,7 +36,7 @@ defmodule PingRiverLevels.HydroApi do
           %{
             station_id: station_id,
             datetime:
-              DateTime.new!(date, Time.new!(hour, 0, 0), "Asia/Bangkok", Tz.TimeZoneDatabase)
+              DateTime.new!(date, Time.new!(hour, 0, 0), "Asia/Bangkok")
               |> DateTime.shift_zone!("Etc/UTC"),
             level: level |> Float.parse() |> elem(0),
             discharge: discharge |> Float.parse() |> elem(0)
